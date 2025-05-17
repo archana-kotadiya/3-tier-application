@@ -58,26 +58,26 @@ jobs:
   # or have a mechanism (like AWS Systems Manager Run Command or CodeDeploy) to update running instances.
 
   # Example: Trigger an ASG Instance Refresh (requires appropriate IAM permissions for GitHub Actions role)
-  # deploy-web:
-  #   needs: build-and-push
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Configure AWS credentials
-  #       uses: aws-actions/configure-aws-credentials@v4
-  #       # ... same as above
-  #     - name: Start Instance Refresh for Web ASG
-  #       run: |
-  #         aws autoscaling start-instance-refresh --auto-scaling-group-name ${{ secrets.PROJECT_NAME }}-web-asg --region ${{ secrets.AWS_REGION }} --preferences '{"MinHealthyPercentage": 50, "InstanceWarmup": 300}'
-  #         echo "Web ASG instance refresh initiated."
-  #
-  # deploy-app:
-  #   needs: build-and-push
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Configure AWS credentials
-  #       uses: aws-actions/configure-aws-credentials@v4
-  #       # ... same as above
-  #     - name: Start Instance Refresh for App ASG
-  #       run: |
-  #         aws autoscaling start-instance-refresh --auto-scaling-group-name ${{ secrets.PROJECT_NAME }}-app-asg --region ${{ secrets.AWS_REGION }} --preferences '{"MinHealthyPercentage": 50, "InstanceWarmup": 300}'
-  #         echo "App ASG instance refresh initiated."
+  deploy-web:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        # ... same as above
+      - name: Start Instance Refresh for Web ASG
+        run: |
+          aws autoscaling start-instance-refresh --auto-scaling-group-name ${{ secrets.PROJECT_NAME }}-web-asg --region ${{ secrets.AWS_REGION }} --preferences '{"MinHealthyPercentage": 50, "InstanceWarmup": 300}'
+          echo "Web ASG instance refresh initiated."
+  
+  deploy-app:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        # ... same as above
+      - name: Start Instance Refresh for App ASG
+        run: |
+          aws autoscaling start-instance-refresh --auto-scaling-group-name ${{ secrets.PROJECT_NAME }}-app-asg --region ${{ secrets.AWS_REGION }} --preferences '{"MinHealthyPercentage": 50, "InstanceWarmup": 300}'
+          echo "App ASG instance refresh initiated."
