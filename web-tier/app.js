@@ -4,7 +4,7 @@ const port = 3000;
 
 // A simple endpoint that might eventually call the app-tier
 app.get('/', (req, res) => {
-  res.send('Hello from the Web Tier! Trying to reach App Tier...');
+  res.send('Hello from the Web Tier! Trying to reach App Tier... this is test');
   // In a real app, you'd make an HTTP request to the app-tier here
   // For example, using axios or node-fetch:
   // fetch('http://<app-tier-load-balancer-dns-name>/app')
